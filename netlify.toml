@@ -2,7 +2,7 @@
   command = "pnpm run build"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "24"
 
 # Netlify detects Next.js automatically. Set these in Site settings > Environment variables:
 #   ADMIN_PIN, SESSION_SECRET            (required)
