@@ -6,8 +6,8 @@ const timeout = (ms: number) =>
   new Promise((_, rej) => setTimeout(() => rej(new Error(`timeout ${ms}ms`)), ms));
 
 export async function GET() {
-  const siteID = process.env.BLOBS_SITE_ID;
-  const token = process.env.BLOBS_TOKEN;
+  const siteID = "ac935cc7-a09b-4371-ba6d-ce1d309f2e35";
+const token = (process.env.BLOBS_TOKEN ?? "").trim();
   const out: Record<string, unknown> = {
     version: "health-v3", // change this string each time so you know the new deploy is live
     node: process.version,
