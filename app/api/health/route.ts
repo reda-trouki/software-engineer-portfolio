@@ -5,37 +5,26 @@ export const dynamic = "force-dynamic";
 const timeout = (ms: number) =>
   new Promise((_, rej) => setTimeout(() => rej(new Error(`timeout ${ms}ms`)), ms));
 
+async function step(name: string, fn: () => Promise<unknown>, out: Record<string, unknown>) {
+  const t = Date.now();
+  try {
+    out[name] = { result: await Promise.race([fn(), timeout(20000)]), ms: Date.now() - t };
+  } catch (e: any) {
+    out[name] = { error: e.message, ms: Date.now() - t };
+  }
+}
+
 export async function GET() {
-  const siteID = "ac935cc7-a09b-4371-ba6d-ce1d309f2e35";
-const token = (process.env.BLOBS_TOKEN ?? "").trim();
-  const out: Record<string, unknown> = {
-    version: "health-v3", // change this string each time so you know the new deploy is live
-    node: process.version,
-    hasSiteID: !!siteID,
-    hasToken: !!token,
-  };
+  const out: Record<string, unknown> = { version: "health-v5", node: process.version };
+  const store = getStore({
+    name: "portfolio",
+    siteID: "ac935cc7-a09b-4371-ba6d-ce1d309f2e35",
+    token: (process.env.BLOBS_TOKEN ?? "").trim(),
+  });
 
-  // Test 1: can the function reach Netlify's API at all?
-  try {
-    const r: any = await Promise.race([
-      fetch("https://api.netlify.com/api/v1/sites/" + siteID, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      timeout(5000),
-    ]);
-    out.netlifyApi = r.status; // 200 = reachable and token works, 401 = bad token, 404 = wrong site ID
-  } catch (e: any) {
-    out.netlifyApi = "FAILED: " + e.message;
-  }
-
-  // Test 2: Blobs with explicit credentials
-  try {
-    const store = getStore({ name: "portfolio", siteID: siteID!, token: token! });
-    const v = await Promise.race([store.get("profile", { type: "json" }), timeout(5000)]);
-    out.blobs = v ? "data found" : "null (store empty, but Blobs works)";
-  } catch (e: any) {
-    out.blobs = "FAILED: " + e.message;
-  }
+  await step("write", async () => { await store.setJSON("health-test", { ok: true }); return "written"; }, out);
+  await step("read", () => store.get("health-test", { type: "json" }), out);
+  await step("readMissing", () => store.get("does-not-exist", { type: "json" }), out);
 
   return Response.json(out);
 }
