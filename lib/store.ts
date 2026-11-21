@@ -55,7 +55,7 @@ const fresh = (): DB => normalize(JSON.parse(JSON.stringify(SEED)) as DB);
 
 /* ------------------------------ Netlify Blobs ------------------------------ */
 
-const withTimeout = <T,>(p: Promise<T>, ms = 4000): Promise<T> =>
+const withTimeout = <T,>(p: Promise<T>, ms = 9000): Promise<T> =>
   Promise.race([
     p,
     new Promise<never>((_, rej) => setTimeout(() => rej(new Error('Blobs timeout')), ms)),

@@ -65,16 +65,15 @@ function checkHash(pin: string, stored: string): boolean {
 export const PIN_PATTERN = /^\d{4,8}$/;
 
 export async function verifyPin(pin: string): Promise<boolean> {
-  let db = await getDB();
-  if (!db.settings.pinHash) {
-    const initial = process.env.ADMIN_PIN;
-    if (!initial && process.env.NODE_ENV === 'production') throw new Error('ADMIN_PIN must be set on first run.');
-    await mutate((d) => {
-      if (!d.settings.pinHash) d.settings.pinHash = hashPin(initial || '1234');
-    });
-    db = await getDB();
-  }
-  return checkHash(pin, db.settings.pinHash!);
+  const db = await getDB();
+  if (db.settings.pinHash) return checkHash(pin, db.settings.pinHash);
+
+  // No PIN saved yet: compare with ADMIN_PIN directly, no storage write needed.
+  const initial = process.env.ADMIN_PIN;
+  if (!initial && process.env.NODE_ENV === 'production') throw new Error('ADMIN_PIN must be set on first run.');
+  const a = Buffer.from(pin);
+  const b = Buffer.from(initial || '1234');
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
 export async function setPin(pin: string): Promise<void> {
