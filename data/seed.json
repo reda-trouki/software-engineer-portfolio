@@ -1,0 +1,421 @@
+{
+  "profile": {
+    "name": "Your Name",
+    "role": "Software Engineer",
+    "headline": "Software engineer who turns hard problems into calm, shipped products.",
+    "highlight": "hard problems",
+    "intro": "I design and build web platforms, APIs and developer tools, from the first commit to production. Edit this text in the admin panel.",
+    "bio": "I'm Your Name, a software engineer who enjoys the whole path from idea to production. I care about honest tests, readable code and shipping things people actually use.\n\nAway from the editor: open source, writing and long walks.",
+    "city": "Your City, Country",
+    "languages": "Arabic, French, English",
+    "currently": "Software Engineer @ Company",
+    "openTo": "Freelance, full-time",
+    "now": "Building something new. Learning Rust.",
+    "loopWords": "BUILD, SHIP, ITERATE, REPEAT",
+    "email": "you@example.com",
+    "github": "https://github.com/",
+    "linkedin": "https://linkedin.com/",
+    "twitter": "",
+    "photoUrl": "",
+    "availability": "Available for new projects",
+    "accent": "#C6F432",
+    "name_fr": "Votre Nom",
+    "name_ar": "اسمك",
+    "role_fr": "Ingénieur logiciel",
+    "role_ar": "مهندس برمجيات",
+    "headline_fr": "Ingénieur logiciel qui transforme les problèmes complexes en produits livrés, sereinement.",
+    "highlight_fr": "problèmes complexes",
+    "headline_ar": "مهندس برمجيات يحوّل المشكلات المعقّدة إلى منتجات جاهزة بهدوء.",
+    "highlight_ar": "المشكلات المعقّدة",
+    "intro_fr": "Je conçois et développe des plateformes web, des API et des outils pour développeurs, du premier commit à la production. Modifiez ce texte depuis le panneau d'administration.",
+    "intro_ar": "أصمّم وأبني منصّات الويب وواجهات البرمجة وأدوات المطوّرين، من أول التزام إلى الإنتاج. يمكنك تعديل هذا النص من لوحة التحكم.",
+    "bio_fr": "Je suis Votre Nom, ingénieur logiciel, et j'aime tout le chemin qui mène d'une idée à la production. J'accorde de l'importance à des tests honnêtes, à un code lisible et à la livraison de choses que les gens utilisent vraiment.\n\nLoin de l'éditeur : open source, écriture et longues promenades.",
+    "bio_ar": "أنا اسمك، مهندس برمجيات أستمتع بالمسار الكامل من الفكرة إلى الإنتاج. أهتم بالاختبارات الصادقة والشيفرة المقروءة وبإطلاق أشياء يستخدمها الناس فعلًا.\n\nبعيدًا عن المحرّر: المصادر المفتوحة والكتابة والمشي الطويل.",
+    "city_fr": "Votre ville, pays",
+    "city_ar": "مدينتك، بلدك",
+    "languages_fr": "Arabe, français, anglais",
+    "languages_ar": "العربية، الفرنسية، الإنجليزية",
+    "currently_fr": "Ingénieur logiciel @ Entreprise",
+    "currently_ar": "مهندس برمجيات @ شركة",
+    "openTo_fr": "Freelance, temps plein",
+    "openTo_ar": "العمل الحر، دوام كامل",
+    "now_fr": "Je construis quelque chose de nouveau. J'apprends Rust.",
+    "now_ar": "أبني شيئًا جديدًا. أتعلّم Rust.",
+    "loopWords_fr": "CONCEVOIR, LIVRER, ITÉRER, RÉPÉTER",
+    "loopWords_ar": "ابنِ, أطلق, حسّن, كرّر"
+  },
+  "posts": [
+    {
+      "id": "seed-post-1",
+      "slug": "designing-apis-that-age-well",
+      "title": "Designing APIs that age well",
+      "topic": "Backend",
+      "excerpt": "Naming, versioning and the small decisions that keep an API pleasant to maintain years after the first release.",
+      "body": "## Start with the names\n\nGood APIs are boring, in the best way. Name resources after what your users talk about, not after your database tables.\n\n## Version with care\n\n- Prefer additive changes.\n- Deprecate loudly, remove quietly.\n- Write the migration guide *before* the breaking change.\n\n![Two public versions share one core](/covers/api-versioning.svg \"Two public versions, one core\")\n\n## Design the errors\n\nErrors are part of the interface. Give every failure a stable code, a human message and a pointer to the field that caused it.\n\n```json\n{\n  \"error\": {\n    \"code\": \"invoice_not_found\",\n    \"message\": \"No invoice with that id.\",\n    \"field\": \"invoice_id\"\n  }\n}\n```\n\n> A good error message is documentation that shows up at exactly the right moment.\n\n## Document by example\n\nReference docs list every option. Examples teach. Ship both, and keep the examples runnable.\n\nSmall, consistent decisions compound.",
+      "status": "Published",
+      "date": "2026-11-02T09:00:00.000Z",
+      "title_fr": "Concevoir des API qui vieillissent bien",
+      "title_ar": "تصميم واجهات برمجية تتقدّم في العمر بجمال",
+      "topic_fr": "Backend",
+      "topic_ar": "الخلفية",
+      "excerpt_fr": "Nommage, versionnage et petites décisions qui rendent une API agréable à maintenir des années après sa première version.",
+      "excerpt_ar": "التسمية وإدارة الإصدارات والقرارات الصغيرة التي تُبقي الواجهة البرمجية سهلة الصيانة بعد سنوات من إصدارها الأول.",
+      "body_fr": "## Commencez par les noms\n\nLes bonnes API sont ennuyeuses, dans le meilleur sens du terme. Nommez les ressources d'après ce dont parlent vos utilisateurs, pas d'après vos tables.\n\n## Versionnez avec discernement\n\n- Privilégiez les changements additifs.\n- Dépréciez bruyamment, supprimez discrètement.\n- Rédigez le guide de migration *avant* le changement incompatible.\n\n![Deux versions publiques partagent un seul cœur](/covers/api-versioning.svg \"Deux versions publiques, un seul cœur\")\n\n## Soignez les erreurs\n\nLes erreurs font partie de l'interface. Donnez à chaque échec un code stable, un message lisible et le champ en cause.\n\n```json\n{\n  \"error\": {\n    \"code\": \"invoice_not_found\",\n    \"message\": \"Aucune facture avec cet identifiant.\",\n    \"field\": \"invoice_id\"\n  }\n}\n```\n\n> Un bon message d'erreur est une documentation qui apparaît exactement au bon moment.\n\n## Documentez par l'exemple\n\nLa référence liste toutes les options. Les exemples enseignent. Livrez les deux, et gardez les exemples exécutables.\n\nDes décisions petites et cohérentes s'additionnent.",
+      "body_ar": "## ابدأ بالأسماء\n\nالواجهات الجيدة مملّة بأفضل معاني الكلمة. سمِّ الموارد بما يتحدث عنه مستخدموك، لا بأسماء جداول قاعدة بياناتك.\n\n## أدِر الإصدارات بتأنٍّ\n\n- فضّل التغييرات الإضافية.\n- أعلن الإهمال بصوت عالٍ، واحذف بهدوء.\n- اكتب دليل الترحيل *قبل* التغيير الكاسر.\n\n![إصداران عامّان يتشاركان نواة واحدة](/covers/api-versioning.svg \"إصداران عامّان، نواة واحدة\")\n\n## صمّم رسائل الخطأ\n\nالأخطاء جزء من الواجهة. أعطِ كل إخفاق رمزًا ثابتًا ورسالة مفهومة وإشارة إلى الحقل المسبّب.\n\n```json\n{\n  \"error\": {\n    \"code\": \"invoice_not_found\",\n    \"message\": \"لا توجد فاتورة بهذا المعرّف.\",\n    \"field\": \"invoice_id\"\n  }\n}\n```\n\n> رسالة الخطأ الجيدة وثيقة تظهر في اللحظة المناسبة تمامًا.\n\n## وثّق بالأمثلة\n\nالمرجع يسرد كل الخيارات، أما الأمثلة فتُعلّم. قدّم الاثنين، وأبقِ الأمثلة قابلة للتشغيل.\n\nالقرارات الصغيرة المتّسقة تتراكم.",
+      "cover": "/covers/api.svg"
+    },
+    {
+      "id": "seed-post-2",
+      "slug": "state-management-without-the-ceremony",
+      "title": "State management without the ceremony",
+      "topic": "Frontend",
+      "excerpt": "When local state, URL state and a tiny store are all you need, and how to know when you need more.",
+      "body": "Most apps need less state management than we think.\n\n## Start local\n\nKeep state as close as possible to where it is used. If only one component cares, it should live in that component.\n\n## Put shareable state in the URL\n\nFilters, tabs and search terms belong in the address bar. You get back/forward and shareable links for free.\n\n```tsx\nconst [params] = useSearchParams();\nconst topic = params.get('topic') ?? 'all';\n```\n\n## Reach for a store last\n\nUse a store only when two distant components genuinely have to agree. That covers a surprising amount of real software.",
+      "status": "Published",
+      "date": "2026-10-08T09:00:00.000Z",
+      "title_fr": "Gérer l'état sans cérémonie",
+      "title_ar": "إدارة الحالة بلا تعقيد",
+      "topic_fr": "Frontend",
+      "topic_ar": "الواجهة الأمامية",
+      "excerpt_fr": "Quand l'état local, l'état dans l'URL et un petit store suffisent, et comment savoir quand il en faut plus.",
+      "excerpt_ar": "متى تكفي الحالة المحلية وحالة الرابط ومخزن صغير، وكيف تعرف أنك تحتاج إلى أكثر من ذلك.",
+      "body_fr": "La plupart des applications ont besoin de moins de gestion d'état qu'on ne le croit.\n\n## Commencez en local\n\nGardez l'état au plus près de l'endroit où il est utilisé. Si un seul composant s'y intéresse, il doit y vivre.\n\n## Mettez l'état partageable dans l'URL\n\nLes filtres, onglets et recherches appartiennent à la barre d'adresse. Vous obtenez retour arrière et liens partageables gratuitement.\n\n```tsx\nconst [params] = useSearchParams();\nconst topic = params.get('topic') ?? 'all';\n```\n\n## N'utilisez un store qu'en dernier\n\nUn store n'est utile que lorsque deux composants éloignés doivent s'accorder. Cela couvre une part étonnante des vrais logiciels.",
+      "body_ar": "معظم التطبيقات تحتاج إلى إدارة حالة أقل مما نظن.\n\n## ابدأ محليًا\n\nأبقِ الحالة أقرب ما يمكن إلى مكان استخدامها. إذا كان مكوّن واحد فقط يهتم بها، فلتعش داخله.\n\n## ضع الحالة القابلة للمشاركة في الرابط\n\nالمرشّحات والتبويبات وعبارات البحث مكانها شريط العنوان. تحصل على الرجوع والتقدّم وروابط قابلة للمشاركة مجانًا.\n\n```tsx\nconst [params] = useSearchParams();\nconst topic = params.get('topic') ?? 'all';\n```\n\n## لا تلجأ إلى مخزن إلا أخيرًا\n\nلا تحتاج مخزنًا إلا عندما يجب أن يتفق مكوّنان بعيدان. وهذا يغطي قدرًا مدهشًا من البرمجيات الحقيقية.",
+      "cover": "/covers/state.svg"
+    },
+    {
+      "id": "seed-post-3",
+      "slug": "reading-code-is-the-real-senior-skill",
+      "title": "Reading code is the real senior skill",
+      "topic": "Career",
+      "excerpt": "Why the fastest way to grow is to get good at understanding code you did not write.",
+      "body": "Writing code is the visible part of the job. Reading it is the part that scales.\n\nStart from the tests, follow one request end to end, and write down what surprised you.",
+      "status": "Published",
+      "date": "2026-09-24T09:00:00.000Z",
+      "title_fr": "Lire du code est la vraie compétence senior",
+      "title_ar": "قراءة الشيفرة هي المهارة الحقيقية للخبير",
+      "topic_fr": "Carrière",
+      "topic_ar": "المسار المهني",
+      "excerpt_fr": "Pourquoi le moyen le plus rapide de progresser est de bien comprendre le code que l'on n'a pas écrit.",
+      "excerpt_ar": "لماذا أسرع طريق للتطور هو أن تُتقن فهم شيفرة لم تكتبها.",
+      "body_fr": "Écrire du code est la partie visible du métier. Le lire est celle qui passe à l'échelle.\n\nCommencez par les tests, suivez une requête de bout en bout et notez ce qui vous a surpris.",
+      "body_ar": "كتابة الشيفرة هي الجزء الظاهر من العمل. أما قراءتها فهي الجزء الذي يتّسع مع النمو.\n\nابدأ بالاختبارات، وتتبّع طلبًا واحدًا من بدايته إلى نهايته، ودوّن ما فاجأك.",
+      "cover": "/covers/reading.svg"
+    },
+    {
+      "id": "seed-post-4",
+      "slug": "notes-on-observability",
+      "title": "Notes on observability (draft)",
+      "topic": "Architecture",
+      "excerpt": "Logs, metrics and traces: what I set up first on every new service.",
+      "body": "Draft in progress.",
+      "status": "Draft",
+      "date": "2026-11-12T09:00:00.000Z",
+      "title_fr": "Notes sur l'observabilité (brouillon)",
+      "title_ar": "ملاحظات حول المراقبة (مسودة)",
+      "topic_fr": "Architecture",
+      "topic_ar": "الهندسة المعمارية",
+      "excerpt_fr": "Logs, métriques et traces : ce que je mets en place en premier sur chaque nouveau service.",
+      "excerpt_ar": "السجلات والمقاييس والتتبّع: ما أُعدّه أولًا في كل خدمة جديدة.",
+      "body_fr": "Brouillon en cours.",
+      "body_ar": "مسودة قيد الكتابة.",
+      "cover": "/covers/observe.svg"
+    }
+  ],
+  "templates": [
+    {
+      "id": "seed-tpl-1",
+      "name": "SaaS dashboard starter",
+      "category": "Web",
+      "price": "Free",
+      "stack": "Next.js, TypeScript, Postgres",
+      "description": "Auth, billing hooks, a settings area and a data table, wired and ready to rename.",
+      "link": "",
+      "name_fr": "Base de tableau de bord SaaS",
+      "name_ar": "قالب لوحة تحكم SaaS",
+      "category_fr": "Web",
+      "category_ar": "ويب",
+      "price_fr": "Gratuit",
+      "price_ar": "مجاني",
+      "description_fr": "Authentification, hooks de facturation, espace de paramètres et tableau de données, câblés et prêts à renommer.",
+      "description_ar": "مصادقة وربط للفوترة ومساحة إعدادات وجدول بيانات، جاهزة للتوصيل وإعادة التسمية."
+    },
+    {
+      "id": "seed-tpl-2",
+      "name": "REST API boilerplate",
+      "category": "Backend",
+      "price": "Free",
+      "stack": "Node.js, Express, Docker",
+      "description": "Layered Node service with validation, structured logging, migrations and tests.",
+      "link": "",
+      "name_fr": "Boilerplate d'API REST",
+      "name_ar": "قالب واجهة REST",
+      "category_fr": "Backend",
+      "category_ar": "الخلفية",
+      "price_fr": "Gratuit",
+      "price_ar": "مجاني",
+      "description_fr": "Service Node en couches avec validation, logs structurés, migrations et tests.",
+      "description_ar": "خدمة Node متعددة الطبقات مع التحقق وسجلات منظّمة وترحيلات واختبارات."
+    },
+    {
+      "id": "seed-tpl-3",
+      "name": "CLI tool scaffold",
+      "category": "Tooling",
+      "price": "Free",
+      "stack": "Node.js, TypeScript",
+      "description": "A typed command-line app with subcommands, config loading and release scripts.",
+      "link": "",
+      "name_fr": "Squelette d'outil CLI",
+      "name_ar": "هيكل أداة سطر الأوامر",
+      "category_fr": "Outillage",
+      "category_ar": "الأدوات",
+      "price_fr": "Gratuit",
+      "price_ar": "مجاني",
+      "description_fr": "Une application en ligne de commande typée, avec sous-commandes, chargement de configuration et scripts de release.",
+      "description_ar": "تطبيق سطر أوامر مكتوب بالأنواع مع أوامر فرعية وتحميل للإعدادات وسكربتات إصدار."
+    }
+  ],
+  "projects": [
+    {
+      "id": "seed-prj-1",
+      "name": "Project One",
+      "type": "Web app",
+      "description": "One sentence: the problem it solves, your role, and the result.",
+      "stack": "React, Node.js, Postgres",
+      "liveUrl": "",
+      "codeUrl": "",
+      "type_fr": "Application web",
+      "type_ar": "تطبيق ويب",
+      "description_fr": "Une phrase : le problème résolu, votre rôle et le résultat.",
+      "description_ar": "جملة واحدة: المشكلة التي يحلّها، دورك، والنتيجة."
+    },
+    {
+      "id": "seed-prj-2",
+      "name": "Project Two",
+      "type": "Backend / API",
+      "description": "One sentence: the problem it solves, your role, and the result.",
+      "stack": "Go, Redis, Docker",
+      "liveUrl": "",
+      "codeUrl": "",
+      "type_fr": "Backend / API",
+      "type_ar": "خلفية / واجهة برمجية",
+      "description_fr": "Une phrase : le problème résolu, votre rôle et le résultat.",
+      "description_ar": "جملة واحدة: المشكلة التي يحلّها، دورك، والنتيجة."
+    },
+    {
+      "id": "seed-prj-3",
+      "name": "Project Three",
+      "type": "Open source",
+      "description": "One sentence: the problem it solves, your role, and the result.",
+      "stack": "TypeScript, CLI",
+      "liveUrl": "",
+      "codeUrl": "",
+      "type_fr": "Open source",
+      "type_ar": "مفتوح المصدر",
+      "description_fr": "Une phrase : le problème résolu, votre rôle et le résultat.",
+      "description_ar": "جملة واحدة: المشكلة التي يحلّها، دورك، والنتيجة."
+    },
+    {
+      "id": "seed-prj-4",
+      "name": "Project Four",
+      "type": "Web app",
+      "description": "One sentence: the problem it solves, your role, and the result.",
+      "stack": "Next.js, Tailwind",
+      "liveUrl": "",
+      "codeUrl": "",
+      "type_fr": "Application web",
+      "type_ar": "تطبيق ويب",
+      "description_fr": "Une phrase : le problème résolu, votre rôle et le résultat.",
+      "description_ar": "جملة واحدة: المشكلة التي يحلّها، دورك، والنتيجة."
+    }
+  ],
+  "skills": [
+    {
+      "id": "seed-sk-1",
+      "name": "TypeScript",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-2",
+      "name": "React",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-3",
+      "name": "Next.js",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-4",
+      "name": "Node.js",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-5",
+      "name": "Python",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-6",
+      "name": "Go",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-7",
+      "name": "GraphQL",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-8",
+      "name": "REST APIs",
+      "row": "Technologies"
+    },
+    {
+      "id": "seed-sk-9",
+      "name": "PostgreSQL",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-10",
+      "name": "Redis",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-11",
+      "name": "Docker",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-12",
+      "name": "Kubernetes",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-13",
+      "name": "AWS",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-14",
+      "name": "CI/CD",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-15",
+      "name": "Testing",
+      "row": "Practices & infra"
+    },
+    {
+      "id": "seed-sk-16",
+      "name": "System design",
+      "row": "Practices & infra"
+    }
+  ],
+  "experience": [
+    {
+      "id": "seed-exp-1",
+      "title": "Software Engineer",
+      "company": "Company One",
+      "start": "2023",
+      "end": "Present",
+      "summary": "What you built or improved, and the outcome.\nScope, scale or the team you worked with.\nOwnership, mentoring or process improvement.",
+      "stack": "TypeScript, React, Node.js",
+      "title_fr": "Ingénieur logiciel",
+      "title_ar": "مهندس برمجيات",
+      "end_fr": "Aujourd'hui",
+      "end_ar": "حتى الآن",
+      "summary_fr": "Ce que vous avez construit ou amélioré, et le résultat.\nL'envergure, l'échelle ou l'équipe avec laquelle vous avez travaillé.\nPropriété du produit, mentorat ou amélioration des processus.",
+      "summary_ar": "ما بنيته أو حسّنته، والنتيجة.\nحجم العمل أو نطاقه أو الفريق الذي عملت معه.\nالمسؤولية عن المنتج أو التوجيه أو تحسين العمليات."
+    },
+    {
+      "id": "seed-exp-2",
+      "title": "Junior Developer",
+      "company": "Company Two",
+      "start": "2021",
+      "end": "2023",
+      "summary": "Shipped features across the stack.\nIntroduced automated testing to the team.",
+      "stack": "Python, Django, PostgreSQL",
+      "title_fr": "Développeur junior",
+      "title_ar": "مطوّر مبتدئ",
+      "summary_fr": "Livraison de fonctionnalités sur toute la pile.\nMise en place des tests automatisés dans l'équipe.",
+      "summary_ar": "إطلاق ميزات عبر كامل المنظومة.\nإدخال الاختبارات الآلية إلى الفريق."
+    }
+  ],
+  "education": [
+    {
+      "id": "seed-edu-1",
+      "degree": "MSc Software Engineering",
+      "school": "Your University, City",
+      "years": "2019 — 2021",
+      "note": "Thesis topic, specialisation or honours.",
+      "degree_fr": "Master en génie logiciel",
+      "degree_ar": "ماجستير في هندسة البرمجيات",
+      "school_fr": "Votre université, ville",
+      "school_ar": "جامعتك، مدينتك",
+      "note_fr": "Sujet de thèse, spécialisation ou mention.",
+      "note_ar": "موضوع الأطروحة أو التخصص أو التقدير."
+    },
+    {
+      "id": "seed-edu-2",
+      "degree": "BSc Computer Science",
+      "school": "Your University, City",
+      "years": "2016 — 2019",
+      "note": "Focus area, notable project or distinction.",
+      "degree_fr": "Licence en informatique",
+      "degree_ar": "إجازة في علوم الحاسوب",
+      "school_fr": "Votre université, ville",
+      "school_ar": "جامعتك، مدينتك",
+      "note_fr": "Domaine de spécialité, projet notable ou distinction.",
+      "note_ar": "مجال التركيز أو مشروع بارز أو تميّز."
+    }
+  ],
+  "messages": [],
+  "settings": {},
+  "certifications": [
+    {
+      "id": "seed-cert-1",
+      "title": "Certification name",
+      "title_fr": "Nom de la certification",
+      "title_ar": "اسم الشهادة",
+      "issuer": "Issuing organisation",
+      "issuer_fr": "Organisme émetteur",
+      "issuer_ar": "الجهة المانحة",
+      "date": "Jun 2024",
+      "date_fr": "Juin 2024",
+      "date_ar": "يونيو 2024",
+      "credentialId": "ABC-123456",
+      "link": "",
+      "image": ""
+    },
+    {
+      "id": "seed-cert-2",
+      "title": "Another certification",
+      "title_fr": "Une autre certification",
+      "title_ar": "شهادة أخرى",
+      "issuer": "Another organisation",
+      "issuer_fr": "Un autre organisme",
+      "issuer_ar": "جهة أخرى",
+      "date": "Nov 2023",
+      "date_fr": "Nov. 2023",
+      "date_ar": "نوفمبر 2023",
+      "credentialId": "",
+      "link": "",
+      "image": ""
+    },
+    {
+      "id": "seed-cert-3",
+      "title": "Language certificate",
+      "title_fr": "Certificat de langue",
+      "title_ar": "شهادة لغة",
+      "issuer": "Language institute",
+      "issuer_fr": "Institut de langues",
+      "issuer_ar": "معهد اللغات",
+      "date": "Mar 2022",
+      "date_fr": "Mars 2022",
+      "date_ar": "مارس 2022",
+      "credentialId": "",
+      "link": "",
+      "image": ""
+    }
+  ]
+}

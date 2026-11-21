@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Design tokens: use them as bg-surface, text-muted, border-line2, font-hd, … */
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-line: var(--c-line);
+  --color-line2: var(--c-line2);
+  --color-ink: #0b0c0e;
+  --color-paper: var(--c-paper);
+  --color-card: var(--c-card);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-soft: var(--c-soft);
+  --color-hl: var(--c-hl);
+  --color-warn: var(--c-warn);
+  --color-accent: var(--accent); /* set per-site from Admin > Profile */
+  --font-hd: 'Geist Variable', 'Noto Sans Arabic Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Geist Variable', 'Noto Sans Arabic Variable', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Noto Sans Arabic Variable', ui-monospace, Menlo, monospace;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+  --animate-spin-slow: spin 16s linear infinite;
+}
+
+:root {
+  --accent: #c6f432;
+  color-scheme: dark;
+  --c-bg: #0b0c0e; --c-surface: #131519; --c-line: #23262d; --c-line2: #2c3038;
+  --c-paper: #eeece4; --c-card: #f8f7f2; --c-fg: #eceae3; --c-muted: #9da0a8; --c-soft: #55575e;
+  --c-hl: #3d424c; --c-warn: #ff9e7a; --c-dot: #23262d; --c-ph1: #131519; --c-ph2: #16191e;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --c-bg: #f5f4ef; --c-surface: #ffffff; --c-line: #e6e3d9; --c-line2: #d9d6ca;
+  --c-paper: #ebe8dc; --c-card: #ffffff; --c-fg: #14161a; --c-muted: #5d6068; --c-soft: #8a8d95;
+  --c-hl: #b9b5a6; --c-warn: #c2410c; --c-dot: #d9d6ca; --c-ph1: #ece9df; --c-ph2: #f1efe7;
+}
+/* lime accent is unreadable as text on a light background: darken it there */
+:root[data-theme='light'] .text-accent,
+:root[data-theme='light'] .hover\:text-accent:hover { color: color-mix(in srgb, var(--accent) 40%, #14161a); }
+html, body { transition: background-color .25s ease, color .25s ease; }
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse-soft { 50% { opacity: 0.35; } }
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  /* clip (not hidden) so position:sticky and pinned sections keep working */
+  body { @apply bg-bg font-sans text-fg antialiased; overflow-x: clip; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #7c5cff; outline-offset: 2px; }
+  ::selection { background: var(--accent); color: #0b0c0e; }
+  img { max-width: 100%; }
+}
+
+/* ---------- decorative patterns (too fiddly for utilities) ---------- */
+.dotgrid { background-image: radial-gradient(var(--c-dot) 1px, transparent 1px); background-size: 28px 28px; }
+/* hero: dot grid with a soft spotlight that follows the cursor (see Animations.tsx) */
+.spotlight { position: relative; background-image: radial-gradient(var(--c-dot) 1px, transparent 1px); background-size: 28px 28px; }
+.spotlight::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(380px circle at var(--mx, 72%) var(--my, 30%), color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%); }
+.spotlight > * { position: relative; }
+.loop-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.outline-text { -webkit-text-stroke: 1.5px var(--c-fg); color: transparent; }
+.photo-ph { background: repeating-linear-gradient(135deg, var(--c-ph1) 0 14px, var(--c-ph2) 14px 28px); }
+
+.thumb-0 { background-color: #0b0c0e; background-image: radial-gradient(circle at 72% 45%, var(--accent) 0 64px, transparent 65px), linear-gradient(#23262d 1px, transparent 1px), linear-gradient(90deg, #23262d 1px, transparent 1px); background-size: auto, 32px 32px, 32px 32px; }
+.thumb-1 { background-color: var(--accent); background-image: repeating-radial-gradient(circle at 30% 60%, #0b0c0e 0 2px, transparent 2px 22px); }
+.thumb-2 { background-color: #0b0c0e; background-image: radial-gradient(circle at 18% 100%, var(--accent) 0 130px, transparent 131px), repeating-linear-gradient(135deg, #0b0c0e 0 14px, #1b1d22 14px 28px); }
+.thumb-3 { background-color: #d9d6c9; background-image: radial-gradient(#0b0c0e 2px, transparent 2px); background-size: 20px 20px; }
+.mini-0 { background: var(--accent); }
+.mini-1 { background-color: #d9d6c9; background-image: radial-gradient(#0b0c0e 2px, transparent 2px); background-size: 18px 18px; }
+.mini-2 { background-color: #1b1e24; background-image: repeating-linear-gradient(135deg, #1b1e24 0 12px, #23262d 12px 24px); }
+
+/* ---------- animation helpers ----------
+   Above-the-fold elements are hidden by CSS until GSAP plays them, so there is
+   no flash. If JS fails or the visitor prefers reduced motion, nothing hides. */
+/* Hide animated elements only when animations are actually enabled */
+html.js:not(.no-anim) [data-a],
+html.js:not(.no-anim) [data-hero-split] [data-word] {
+  opacity: 0;
+}
+
+/* ---------- article typography tweaks ---------- */
+.prose { --tw-prose-body: color-mix(in srgb, var(--c-fg) 85%, transparent); --tw-prose-headings: var(--c-fg); --tw-prose-links: var(--accent); --tw-prose-bold: var(--c-fg); --tw-prose-code: var(--c-fg); --tw-prose-quotes: var(--c-muted); --tw-prose-quote-borders: var(--accent); --tw-prose-bullets: var(--accent); --tw-prose-counters: var(--accent); --tw-prose-hr: var(--c-line2); --tw-prose-pre-bg: #0d0f13; --tw-prose-pre-code: #eceae3; --tw-prose-th-borders: var(--c-line2); --tw-prose-td-borders: var(--c-line2); }
+:root[data-theme='light'] .prose a { color: color-mix(in srgb, var(--accent) 40%, #14161a); }
+.prose :where(code):not(:where(pre *))::before, .prose :where(code):not(:where(pre *))::after { content: none; }
+.prose :where(code):not(:where(pre *)) { background: var(--c-surface); border: 1px solid var(--c-line2); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.88em; }
+.prose :where(pre) { border: 1px solid #2c3038; background: #0d0f13; border-radius: 8px; }
+.prose :where(h2, h3) { font-family: var(--font-hd); letter-spacing: -0.02em; font-weight: 600; }
+.prose :where(h2) { font-size: 1.6em; } .prose :where(h3) { font-size: 1.25em; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* pinned card stack: all cards share one grid cell and are layered by z-index */
+.stack-stage[data-pin='on'] > * { grid-area: 1 / 1; }
+
+/* ---------- Arabic / RTL ---------- */
+/* letter-spacing breaks Arabic letter joining */
+html[dir='rtl'] * { letter-spacing: normal !important; }
+html[lang='ar'] body { line-height: 1.75; }
+html[lang='ar'] h1, html[lang='ar'] h2, html[lang='ar'] h3 { line-height: 1.35 !important; }
+/* Instrument Serif has no Arabic: the highlighted word keeps the accent colour but not the italic serif */
+html[lang='ar'] [data-word].italic { font-family: var(--font-hd); font-style: normal; font-size: 1em; font-weight: 700; }
+/* the word-mask needs breathing room for Arabic marks above and below the line */
+html[lang='ar'] [data-hero-split] > span, html[lang='ar'] [data-split] > span { padding-block: 0.18em; margin-block: -0.18em; }
+
+
+/* ---------- code highlighting (highlight.js classes, palette matched to the site) ---------- */
+.hljs-comment, .hljs-quote { color: #6f747e; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-built_in { color: #c9a3ff; }
+.hljs-string, .hljs-attr, .hljs-addition { color: #c6f432; }
+.hljs-number, .hljs-symbol, .hljs-bullet { color: #ffb86b; }
+.hljs-title, .hljs-function, .hljs-section { color: #7df9c9; }
+.hljs-variable, .hljs-template-variable, .hljs-property { color: #eceae3; }
+.hljs-type, .hljs-class { color: #ffd479; }
+.hljs-deletion { color: #ff9e7a; }
+
+/* cards with a soft glow that follows the cursor (driven by data-spotlight) */
+.card-glow { position: relative; isolation: isolate; }
+.card-glow::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%);
+}
+.card-glow:hover::before { opacity: 1; }
+
+/* Panels that always stay dark (terminal / code cards), whatever the page theme */
+.force-dark {
+  --c-bg: #0b0c0e; --c-surface: #131519; --c-line: #23262d; --c-line2: #2c3038;
+  --c-fg: #eceae3; --c-muted: #9da0a8; --c-soft: #55575e; --c-hl: #3d424c;
+  color-scheme: dark; color: var(--c-fg);
+}
+:root[data-theme='light'] .force-dark .text-accent { color: var(--accent); }
+
+@keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
