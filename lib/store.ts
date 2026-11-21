@@ -1,8 +1,12 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { getStore } from '@netlify/blobs';
+import seedJson from '@/data/seed.json';
 
-// A tiny JSON-file "database". Fine for a personal site on a server with a
-// persistent disk. To move to Postgres/SQLite later, only this file changes.
+// A tiny "database" with two backends, chosen automatically:
+//  - Netlify Blobs when running on Netlify (serverless: no writable disk)
+//  - a JSON file (data/db.json) everywhere else (local dev, VPS, Railway/Fly with a volume)
+// Force one with STORAGE=blobs or STORAGE=file. Only this file and lib/files.ts touch storage.
 
 export interface Item {
   id: string;
@@ -33,7 +37,48 @@ export interface DB {
 
 const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-const SEED_FILE = path.join(process.cwd(), 'data', 'seed.json');
+const SEED = seedJson as unknown as DB; // bundled, so it also exists inside serverless functions
+
+export const useBlobs = (): boolean =>
+  process.env.STORAGE === 'blobs' || (process.env.STORAGE !== 'file' && (!!process.env.NETLIFY || !!process.env.NETLIFY_BLOBS_CONTEXT));
+
+// databases created by older versions miss newer collections
+function normalize(db: DB): DB {
+  db.certifications ??= [];
+  db.messages ??= [];
+  db.settings ??= {};
+  return db;
+}
+
+const fresh = (): DB => normalize(JSON.parse(JSON.stringify(SEED)) as DB);
+
+/* ------------------------------ Netlify Blobs ------------------------------ */
+
+const blobStore = () => getStore({ name: 'portfolio', consistency: 'strong' });
+
+async function blobMutate<T>(fn: (db: DB) => T | Promise<T>): Promise<T> {
+  const store = blobStore();
+  // optimistic concurrency: serverless instances can't share an in-memory queue, so
+  // write only if nobody changed the document since we read it, otherwise retry.
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const cur = await store.getWithMetadata('db', { type: 'json' });
+    const db = cur ? normalize(cur.data as DB) : fresh();
+    const result = await fn(db);
+    const res = cur
+      ? await store.setJSON('db', db, { onlyIfMatch: cur.etag })
+      : await store.setJSON('db', db, { onlyIfNew: true });
+    if (res.modified) return result;
+    await new Promise((r) => setTimeout(r, 40 + Math.random() * 120));
+  }
+  throw new Error('Could not save: too many simultaneous edits. Please try again.');
+}
+
+async function blobLoad(): Promise<DB> {
+  const data = (await blobStore().get('db', { type: 'json' })) as DB | null;
+  return data ? normalize(data) : fresh(); // not saved yet: show the seed content
+}
+
+/* -------------------------------- JSON file -------------------------------- */
 
 let queue: Promise<unknown> = Promise.resolve();
 let seeding: Promise<DB> | null = null;
@@ -53,21 +98,15 @@ function seed(): Promise<DB> {
       return JSON.parse(await fs.readFile(DB_FILE, 'utf8')) as DB; // someone else already created it
     } catch (e) {
       if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e;
-      const fresh = JSON.parse(await fs.readFile(SEED_FILE, 'utf8')) as DB;
-      await write(fresh);
-      return fresh;
+      const db = fresh();
+      await write(db);
+      return db;
     }
   })().finally(() => { seeding = null; });
   return seeding;
 }
 
-// databases created by older versions miss newer collections
-function normalize(db: DB): DB {
-  db.certifications ??= [];
-  return db;
-}
-
-async function load(): Promise<DB> {
+async function fileLoad(): Promise<DB> {
   try {
     return normalize(JSON.parse(await fs.readFile(DB_FILE, 'utf8')) as DB);
   } catch (e) {
@@ -76,14 +115,17 @@ async function load(): Promise<DB> {
   }
 }
 
+/* ---------------------------------- API ---------------------------------- */
+
 export function getDB(): Promise<DB> {
-  return load();
+  return useBlobs() ? blobLoad() : fileLoad();
 }
 
 /** Serialised read-modify-write so concurrent requests never clobber each other. */
 export function mutate<T>(fn: (db: DB) => T | Promise<T>): Promise<T> {
+  if (useBlobs()) return blobMutate(fn);
   const run = queue.then(async () => {
-    const db = await load();
+    const db = await fileLoad();
     const result = await fn(db);
     await write(db);
     return result;

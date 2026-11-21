@@ -1,10 +1,9 @@
-import { promises as fs } from 'fs';
-import path from 'path';
 import { fail, guard, json } from '@/lib/api';
+import { saveFile, removeByPrefix } from '@/lib/files';
 import { mutate } from '@/lib/store';
 
 const MAX_BYTES = 5 * 1024 * 1024;
-const UPLOAD_DIR = path.join(process.env.DATA_DIR || path.join(process.cwd(), 'data'), 'uploads');
+const MIME = { jpg: 'image/jpeg', png: 'image/png', webp: 'image/webp' } as const;
 
 // Identify the real image type from its first bytes (never trust the filename or MIME header).
 function detect(buf: Buffer): 'jpg' | 'png' | 'webp' | null {
@@ -35,9 +34,8 @@ export async function POST(req: Request) {
   const ext = detect(buf);
   if (!ext) return fail(400, 'Please upload a JPG, PNG or WebP image.');
 
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
   const name = kind === 'photo' ? `photo-${Date.now()}.${ext}` : `img-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-  await fs.writeFile(path.join(UPLOAD_DIR, name), buf);
+  await saveFile(name, buf, MIME[ext]);
 
   const url = `/media/${name}`;
   if (kind === 'image') return json({ url });
@@ -46,8 +44,6 @@ export async function POST(req: Request) {
   });
 
   // remove older uploaded photos
-  for (const f of await fs.readdir(UPLOAD_DIR)) {
-    if (f !== name && f.startsWith('photo-')) await fs.unlink(path.join(UPLOAD_DIR, f)).catch(() => undefined);
-  }
+  await removeByPrefix('photo-', name);
   return json({ url });
 }

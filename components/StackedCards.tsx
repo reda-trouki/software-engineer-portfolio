@@ -64,7 +64,7 @@ export default function StackedCards({ head, children, tones = ['surface', 'pape
   }, [cards.length]);
 
   return (
-    <div ref={pinRef} className="mx-auto flex w-full max-w-280 flex-col justify-center px-5 py-16 sm:px-8 sm:py-24 [@media(min-width:640px)_and_(min-height:760px)]:min-h-screen">
+    <div ref={pinRef} className="mx-auto flex w-full max-w-[1120px] flex-col justify-center px-5 py-16 sm:px-8 sm:py-24 [@media(min-width:640px)_and_(min-height:760px)]:min-h-screen">
       {head}
       <div ref={stageRef} className="stack-stage grid gap-5">
         {cards.map((card, i) => (

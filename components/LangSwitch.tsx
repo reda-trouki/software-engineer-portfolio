@@ -21,7 +21,7 @@ export default function LangSwitch({ className = '' }: { className?: string }) {
   }
 
   return (
-    <div dir="ltr" role="group" aria-label={t.nav.language} className={`items-center rounded-full border border-line2 p-0.5 ${pending ? 'opacity-60' : ''} ${className}`}>
+    <div dir="ltr" role="group" aria-label={t.nav.language} className={`inline-flex items-center rounded-full border border-line2 p-0.5 ${pending ? 'opacity-60' : ''} ${className}`}>
       {LOCALES.map((l) => (
         <button
           key={l} type="button" lang={l} aria-pressed={l === locale} aria-label={FULL[l]} onClick={() => pick(l)}

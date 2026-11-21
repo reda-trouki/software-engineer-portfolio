@@ -62,7 +62,7 @@ function Tooltip({
             ? 'pointer-events-auto w-full max-w-none translate-y-0 opacity-100 shadow-sm'
             : `
               pointer-events-none
-              w-65 max-w-[calc(100vw-48px)]
+              w-[260px] max-w-[calc(100vw-48px)]
               -translate-y-1.5 opacity-0
               group-hover:translate-y-0
               group-hover:opacity-100
@@ -98,7 +98,7 @@ function Tooltip({
 
       <h4
         className="
-          mt-2.5 wrap-break-word font-hd
+          mt-2.5 break-words font-hd
           text-[13px] font-semibold
           leading-snug text-fg
         "
@@ -107,7 +107,7 @@ function Tooltip({
       </h4>
 
       {subtitle && (
-        <p className="mt-1 wrap-break-word text-[11px] leading-relaxed text-muted">
+        <p className="mt-1 break-words text-[11px] leading-relaxed text-muted">
           {subtitle}
         </p>
       )}
@@ -262,7 +262,7 @@ export default function YearsStrip({
     <div
       ref={root}
       className="
-        relative min-w-0 rounded-3xl
+        relative min-w-0 rounded-[24px]
         border border-line2 bg-surface
         sm:rounded-[28px]
       "
@@ -328,7 +328,7 @@ export default function YearsStrip({
           aria-hidden="true"
           className="
             pointer-events-none absolute inset-y-0
-            inset-s-4 inset-e-4 sm:inset-s-8 sm:inset-e-8
+            start-4 end-4 sm:start-8 sm:end-8
           "
         >
           {ticks.map((y) => (
@@ -372,7 +372,7 @@ export default function YearsStrip({
                 >
                   <b
                     className="
-                      wrap-break-word font-hd
+                      break-words font-hd
                       text-[14px] font-semibold
                       tracking-[-0.01em]
                       sm:text-[15px]
@@ -381,7 +381,7 @@ export default function YearsStrip({
                     {b.label}
                   </b>
 
-                  <span className="wrap-break-word text-[11px] text-muted sm:text-[13px]">
+                  <span className="break-words text-[11px] text-muted sm:text-[13px]">
                     {b.sub}
                   </span>
                 </div>
@@ -420,7 +420,7 @@ export default function YearsStrip({
                       data-bar
                       className="
                         absolute inset-y-2 left-0 right-0
-                        rounded-full bg-linear-to-r
+                        rounded-full bg-gradient-to-r
                         from-accent to-accent/60
                         shadow-[0_0_30px_-4px_color-mix(in_srgb,var(--accent)_60%,transparent)]
                         transition-all duration-200

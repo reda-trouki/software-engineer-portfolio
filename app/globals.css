@@ -76,11 +76,8 @@ html, body { transition: background-color .25s ease, color .25s ease; }
 /* ---------- animation helpers ----------
    Above-the-fold elements are hidden by CSS until GSAP plays them, so there is
    no flash. If JS fails or the visitor prefers reduced motion, nothing hides. */
-/* Hide animated elements only when animations are actually enabled */
-html.js:not(.no-anim) [data-a],
-html.js:not(.no-anim) [data-hero-split] [data-word] {
-  opacity: 0;
-}
+.js:not(.no-anim) [data-a],
+.js:not(.no-anim) [data-hero-split] [data-word] { opacity: 0; }
 
 /* ---------- article typography tweaks ---------- */
 .prose { --tw-prose-body: color-mix(in srgb, var(--c-fg) 85%, transparent); --tw-prose-headings: var(--c-fg); --tw-prose-links: var(--accent); --tw-prose-bold: var(--c-fg); --tw-prose-code: var(--c-fg); --tw-prose-quotes: var(--c-muted); --tw-prose-quote-borders: var(--accent); --tw-prose-bullets: var(--accent); --tw-prose-counters: var(--accent); --tw-prose-hr: var(--c-line2); --tw-prose-pre-bg: #0d0f13; --tw-prose-pre-code: #eceae3; --tw-prose-th-borders: var(--c-line2); --tw-prose-td-borders: var(--c-line2); }

@@ -35,7 +35,7 @@ export default function Animations() {
       root.classList.add('no-anim');
     });
 
-    mm.add('(prefers-reduced-motion: no-preference), (prefers-reduced-motion: no-preference) and (min-width: 0px)', () => {
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
       root.classList.remove('no-anim');
       try {
         const $ = <T extends HTMLElement = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);

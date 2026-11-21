@@ -94,3 +94,10 @@ Server-rendered markup opts in with data attributes, so pages stay simple: `data
 
 ## Contact form emails
 Messages are always saved in **Admin → Messages**. To also get an email, set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` (and optionally `CONTACT_TO`) in `.env.local` (see `.env.example`), then restart. Messages that were emailed show "· emailed" in the admin.
+
+## Deploying to Netlify
+Storage is automatic: on Netlify the content, messages, PIN and uploaded images live in **Netlify Blobs** (no database to set up); locally they stay in `data/`.
+1. (Optional) To start the live site with the content you wrote locally, run `npm run seed:from-db` and commit `data/seed.json`.
+2. Push to GitHub, then "Add new site → Import from Git" on Netlify (build command `npm run build`).
+3. In Site settings → Environment variables set `ADMIN_PIN`, `SESSION_SECRET` and (for emails) the `SMTP_*` values, then redeploy.
+4. Open `/admin` on the live site. Force a backend with `STORAGE=file` or `STORAGE=blobs` if needed.

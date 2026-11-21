@@ -30,7 +30,7 @@ export default async function TemplatesPage() {
               <SplitWords text={t.templates.title} highlight={t.templates.hl} />
             </h1>
           </div>
-          <p data-a data-hero className="max-w-115 text-pretty text-base leading-[1.7] text-muted sm:text-[17px]">{t.templates.sub}</p>
+          <p data-a data-hero className="max-w-[460px] text-pretty text-base leading-[1.7] text-muted sm:text-[17px]">{t.templates.sub}</p>
         </div>
       </section>
       <section className="bg-paper text-ink">

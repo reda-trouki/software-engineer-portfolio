@@ -110,7 +110,7 @@ export default function NavClient({
 
     return (
         <header className="sticky top-0 z-40 px-3 pt-3 sm:px-5">
-            <div className="mx-auto flex max-w-260 items-center justify-between gap-3 rounded-full border border-line2 bg-bg/75 py-1.5 ps-5 pe-1.5 shadow-sm backdrop-blur-xl">
+            <div className="mx-auto flex max-w-[1040px] items-center justify-between gap-3 rounded-full border border-line2 bg-bg/75 py-1.5 ps-5 pe-1.5 shadow-sm backdrop-blur-xl">
 
                 {/* Brand */}
                 <Link
@@ -193,7 +193,7 @@ export default function NavClient({
                             </svg>
                         </summary>
 
-                        <div className="absolute inset-e-0 top-12 flex w-[min(280px,calc(100vw-24px))] flex-col rounded-2xl border border-line2 bg-surface p-2 shadow-2xl">
+                        <div className="absolute end-0 top-12 flex w-[min(280px,calc(100vw-24px))] flex-col rounded-2xl border border-line2 bg-surface p-2 shadow-2xl">
                             {links.map((link) => {
                                 const selected = isActive(link);
 
