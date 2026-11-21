@@ -5,7 +5,12 @@ import { useBlobs } from '@/lib/store';
 
 // Uploaded images: Netlify Blobs on Netlify, the data/uploads folder everywhere else.
 const DIR = path.join(process.env.DATA_DIR || path.join(process.cwd(), 'data'), 'uploads');
-const store = () => getStore({ name: 'uploads', consistency: 'strong' });
+const store = () => getStore({
+    name: 'uploads', // keep whatever name your code already uses
+    consistency: 'strong',
+    siteID: process.env.BLOBS_SITE_ID?.trim(),
+    token: process.env.BLOBS_TOKEN?.trim(),
+  });
 
 export async function saveFile(name: string, buf: Buffer, contentType: string): Promise<void> {
   if (useBlobs()) {
