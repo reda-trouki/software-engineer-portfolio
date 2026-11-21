@@ -101,3 +101,10 @@ Storage is automatic: on Netlify the content, messages, PIN and uploaded images 
 2. Push to GitHub, then "Add new site → Import from Git" on Netlify (build command `npm run build`).
 3. In Site settings → Environment variables set `ADMIN_PIN`, `SESSION_SECRET` and (for emails) the `SMTP_*` values, then redeploy.
 4. Open `/admin` on the live site. Force a backend with `STORAGE=file` or `STORAGE=blobs` if needed.
+
+## Deploying to Vercel with a free Neon database
+1. Push the project to GitHub and import it on Vercel.
+2. In the Vercel project: **Storage → Create → Neon (Postgres)** (free plan) and connect it to the project. This adds `DATABASE_URL` automatically. Or create a database at neon.tech and add `DATABASE_URL` yourself.
+3. Add `ADMIN_PIN` and `SESSION_SECRET` (and the `SMTP_*` values for emails) under Settings → Environment Variables, then redeploy.
+4. The two tables (`kv`, `uploads`) are created automatically on first use. Content, messages, the PIN and uploaded images are all stored in Neon. Until you save something the site shows `data/seed.json` (see `npm run seed:from-db`).
+Storage is picked automatically: `DATABASE_URL` → Neon, Netlify → Blobs, otherwise `data/`. Force one with `STORAGE=neon|blobs|file`.
