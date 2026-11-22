@@ -28,7 +28,7 @@ export default async function Nav({
       contactLabel={t.nav.contact}
       menuLabel={t.nav.menu}
       desktopLangSwitch={<LangSwitch className="hidden md:inline-flex" />}
-      mobileLangSwitch={<LangSwitch />}
+      mobileLangSwitch={<LangSwitch className='inline-flex' />}
     />
   );
 }
