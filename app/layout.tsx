@@ -11,6 +11,7 @@ import { getDB } from '@/lib/store';
 import { ACCENTS } from '@/lib/collections';
 import { I18nProvider } from '@/components/I18nProvider';
 import { getI18n } from '@/lib/locale';
+import { Analytics } from "@vercel/analytics/next"
 
 export const dynamic = 'force-dynamic';
 
@@ -41,6 +42,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <I18nProvider locale={locale} t={t}>{children}</I18nProvider>
         <Animations />
+        <Analytics />
       </body>
     </html>
   );
